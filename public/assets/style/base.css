@@ -82,10 +82,9 @@ body
 }
 
 .header .navbar a:hover {
-    background-color: var(--main-color);
+    color: var(--main-color);
     border-bottom: .1rem solid var(--main-color);
     padding-bottom: .5rem;
-    text-decoration: underline;
 }
 
 .nav_user {
