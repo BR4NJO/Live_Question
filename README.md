@@ -18,10 +18,8 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
 vérifiez l'installation de symfony en exécutant :
 symfony -v
 
-Cloner le Dépôt
 
 Clonez le dépôt GitHub du projet sur votre machine locale en utilisant la commande suivante :
-
 git clone https://github.com/BR4NJO/Live_Question/edit/master
 
 
