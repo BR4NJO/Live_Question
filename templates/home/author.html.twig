@@ -1,0 +1,19 @@
+{# templates/author/list.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Auteurs{% endblock %}
+
+{% block body %}
+    <h1>Liste des Auteurs</h1>
+    <ul>
+        {% for author in authors %}
+            <li>
+                <a href="{{ path('author_questions', { id: author.id }) }}">
+                    {{ author.username }}
+                </a>
+            </li>
+        {% else %}
+            <p>Aucun auteur trouvé.</p>
+        {% endfor %}
+    </ul>
+{% endblock %}

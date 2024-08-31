@@ -1,0 +1,43 @@
+{# templates/profile/edit.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/style/edit.css') }}" alt="">
+{% endblock %}
+
+{% block body %}
+    <div class="edit-profile-container">
+        <h1>Modifier mon profil</h1>
+
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div class="form-group">
+                {{ form_label(form.pseudo, null, {'attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.pseudo, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.pseudo) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.email, null, {'attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.email) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.plainPassword, null, {'attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Laissez vide si vous ne souhaitez pas modifier votre mot de passe'}}) }}
+                {{ form_errors(form.plainPassword) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.picture, null, {'attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.picture, {'attr': {'class': 'form-control-file'}}) }}
+                {{ form_errors(form.picture) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_widget(form.save, {'attr': {'class': 'btn-save'}}) }}
+            </div>
+        {{ form_end(form) }}
+        <a href="{{ path('home') }}" class="btn btn-secondary">Retour à la page d'acceuil</a>
+    </div>
+{% endblock %}

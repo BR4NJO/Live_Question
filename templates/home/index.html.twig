@@ -1,0 +1,179 @@
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/style/index.css') }}" alt="">
+{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        {# La question la plus populaire #}
+        {% if mostAnsweredQuestion %}
+            <div class="question-card">
+                {% if mostAnsweredQuestion.picture %}
+                    <img src="{{ asset('uploads/' ~ mostAnsweredQuestion.picture) }}" alt="Image de la question">
+                {% endif %}
+                
+                <div class="question-card-content">
+                    <div class="question-card-header">
+                        <div class="date-category">
+                            <span class="category">
+                                {% for category in mostAnsweredQuestion.categories %}
+                                    {{ category.name }}{% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </span>
+                            <span class="date">
+                                Posté il y a 
+                                {% set diff_in_seconds = "now"|date('U') - mostAnsweredQuestion.date|date('U') %}
+
+                                {% if diff_in_seconds < 60 %}
+                                    {{ diff_in_seconds }} seconde{{ diff_in_seconds > 1 ? 's' }}
+                                {% elseif diff_in_seconds < 3600 %}
+                                    {{ (diff_in_seconds / 60)|round }} minute{{ (diff_in_seconds / 60)|round > 1 ? 's' }}
+                                {% elseif diff_in_seconds < 86400 %}
+                                    {{ (diff_in_seconds / 3600)|round }} heure{{ (diff_in_seconds / 3600)|round > 1 ? 's' }}
+                                {% else %}
+                                    {{ (diff_in_seconds / 86400)|round }} jour{{ (diff_in_seconds / 86400)|round > 1 ? 's' }}
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="answer-count">
+                            Réponses : {{ answerCount }}
+                        </div>
+                    </div>
+                    
+                    <div class="question-card-title">
+                        <h2>{{ mostAnsweredQuestion.title }}</h2>
+                    </div>
+                    
+                    <div class="question-card-author">
+                        Posté par <strong>{{ mostAnsweredQuestion.user.username }}</strong>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p>Aucune question n'a été trouvée.</p>
+        {% endif %}
+
+        {# Les trois dernières questions posées #}
+        <div class="recent-questions">
+            <h2>Les trois dernières questions</h2>
+            {% for result in latestQuestions %}
+                {% set question = result[0] %}
+                {% set answer_count = result['answer_count'] %}
+                
+                <div class="question-card">
+                    {% if question.picture %}
+                        <img src="{{ asset('uploads/' ~ question.picture) }}" alt="Image de la question">
+                    {% endif %}
+                    
+                    <div class="question-card-content">
+                        <div class="question-card-header">
+                            <div class="date-category">
+                                <span class="category">
+                                    {% for category in question.categories %}
+                                        {{ category.name }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </span>
+                                <span class="date">
+                                    Posté il y a 
+                                    {% set diff_in_seconds = "now"|date('U') - question.date|date('U') %}
+
+                                    {% if diff_in_seconds < 60 %}
+                                        {{ diff_in_seconds }} seconde{{ diff_in_seconds > 1 ? 's' }}
+                                    {% elseif diff_in_seconds < 3600 %}
+                                        {{ (diff_in_seconds / 60)|round }} minute{{ (diff_in_seconds / 60)|round > 1 ? 's' }}
+                                    {% elseif diff_in_seconds < 86400 %}
+                                        {{ (diff_in_seconds / 3600)|round }} heure{{ (diff_in_seconds / 3600)|round > 1 ? 's' }}
+                                    {% else %}
+                                        {{ (diff_in_seconds / 86400)|round }} jour{{ (diff_in_seconds / 86400)|round > 1 ? 's' }}
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="answer-count">
+                                Réponses : {{ answer_count }}
+                            </div>
+                        </div>
+                        
+                        <div class="question-card-title">
+                            <h2>{{ question.title }}</h2>
+                        </div>
+                        
+                        <div class="question-card-author">
+                            Posté par <strong>{{ question.user.username }}</strong>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p>Aucune question récente n'a été trouvée.</p>
+            {% endfor %}
+        </div>
+
+         <a href="{{ path('question') }}" class="btn btn-primary">Voir toutes les questions</a>
+
+        {# Les utilisateurs ayant posé des questions #}
+        <div class="top-users">
+            <h2>Meilleurs auteurs</h2>
+            <ul>
+                {% for user in topUsers %}
+                    <li>{{ user.pseudo }} : {{ user.question_count }} question(s)</li>
+                {% else %}
+                    <li>Aucun utilisateur n'a encore posé de questions.</li>
+                {% endfor %}
+            </ul>
+            <a href="{{ path('author') }}" class="btn btn-primary">Voir tous les auteurs</a>
+        </div>
+
+        <div class="films-questions">
+            <h2>Dans la thématique "films"</h2>
+            {% if questionsInFilmsCategory is not empty %}
+                {% for question in questionsInFilmsCategory %}
+                    <div class="question-card">
+                        {% if question.picture %}
+                            <img src="{{ asset('uploads/' ~ question.picture) }}" alt="Image de la question">
+                        {% endif %}
+                        
+                        <div class="question-card-content">
+                            <div class="question-card-header">
+                                <div class="date-category">
+                                    <span class="category">
+                                        {% for category in question.categories %}
+                                            {{ category.name }}{% if not loop.last %}, {% endif %}
+                                        {% endfor %}
+                                    </span>
+                                    <span class="date">
+                                        Posté il y a 
+                                        {% set diff_in_seconds = "now"|date('U') - question.date|date('U') %}
+
+                                        {% if diff_in_seconds < 60 %}
+                                            {{ diff_in_seconds }} seconde{{ diff_in_seconds > 1 ? 's' }}
+                                        {% elseif diff_in_seconds < 3600 %}
+                                            {{ (diff_in_seconds / 60)|round }} minute{{ (diff_in_seconds / 60)|round > 1 ? 's' }}
+                                        {% elseif diff_in_seconds < 86400 %}
+                                            {{ (diff_in_seconds / 3600)|round }} heure{{ (diff_in_seconds / 3600)|round > 1 ? 's' }}
+                                        {% else %}
+                                            {{ (diff_in_seconds / 86400)|round }} jour{{ (diff_in_seconds / 86400)|round > 1 ? 's' }}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                <div class="answer-count">
+                                    Réponses : {{ question.getAnswerCount() }}
+                                </div>
+                            </div>
+                            
+                            <div class="question-card-title">
+                                <h2>{{ question.title }}</h2>
+                            </div>
+                            
+                            <div class="question-card-author">
+                                Posté par <strong>{{ question.user.username }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Aucune question sur les films n'a été trouvée.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

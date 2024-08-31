@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création compte{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/style/register.css') }}" alt="">
+{% endblock %}
+
+{% block body %}
+    <div class="register-profile-container">
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+
+        <h1>Création du compte</h1>
+
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm) }}
+            <div class="form-group">
+                {{ form_label(registrationForm.pseudo, 'Pseudo utilisateur', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(registrationForm.pseudo, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(registrationForm.email, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(registrationForm.plainPassword, 'Mot de Passe', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(registrationForm.picture, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(registrationForm.picture, {'attr': {'class': 'form-control-file'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(registrationForm.agreeTerms) }}
+                {{ form_label(registrationForm.agreeTerms, 'Je prends acte des conditions', {'label_attr': {'class': 'form-label'}}) }}
+            </div>
+
+            <button type="submit" class="btn-save">Enregistrement</button>
+
+            <p>Déjà inscrit(e) ? <a href="{{ path('app_login') }}">Me connecter</a></p>
+        {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}

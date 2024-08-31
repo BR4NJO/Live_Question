@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/style/new_question.css') }}" alt="">
+{% endblock %}
+
+{% block body %}
+    <h1>Poster une nouvelle question</h1>
+
+    {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.title) }}
+            {{ form_widget(form.title) }}
+        </div>
+        
+        <div class="form-group">
+            {{ form_label(form.content) }}
+            {{ form_widget(form.content) }}
+        </div>
+        
+        <div class="form-group">
+            {{ form_label(form.picture) }}
+            {{ form_widget(form.picture) }}
+        </div>
+        
+        <div class="form-group">
+            {{ form_label(form.categories) }}
+            <div class="checkbox-group">
+                {% for choice in form.categories %}
+                    <div>
+                        {{ form_widget(choice) }}
+                        {{ form_label(choice) }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button class="btn btn-primary">Soumettre</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('home') }}">Retour à la page d'accueil</a>
+{% endblock %}

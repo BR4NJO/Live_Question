@@ -1,0 +1,200 @@
+:root{
+    --main-color: #d3ad7f;
+    --purple: #ad0569;
+    --bg: white;
+    --border: .1rem solid rgba(255,255,255,.3);
+    --black: black;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    transition: .2s linear;
+}
+
+html{
+    height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+    scroll-padding-top: 9rem;
+    scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar{
+    width: .8rem;
+}
+
+html::-webkit-scrollbar-track{
+    background: transparent;
+}
+
+body
+{
+    height: 100%;
+    margin: 0;
+    background: var(--bg);
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+}
+
+/*========================NAVBAR========================*/
+
+
+.header {
+    background: var(--purple);
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 7%;
+    border-bottom: var(--border);
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.header .logo {
+    margin: 0 1rem;
+    font-size: 2.2rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.header .logo img {
+    height: 6rem;
+}
+
+.header .navbar {
+    display: flex; 
+    margin-left: 5rem;
+    flex-grow: 1; 
+}
+
+.header .navbar a {
+    margin: 0 1rem;
+    font-size: 1.6rem;
+    color: #fff;
+}
+
+.header .navbar a:hover {
+    background-color: var(--main-color);
+    border-bottom: .1rem solid var(--main-color);
+    padding-bottom: .5rem;
+    text-decoration: underline;
+}
+
+.nav_user {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-left: auto; 
+}
+
+.nav_user:hover .dropdown-menu {
+    display: block;
+}
+
+.nav_avatar, .nav_pseudo {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.user-pseudo {
+    margin: 0 1rem;
+    font-size: 1.6rem;
+    color: #fff;
+}
+
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    z-index: 1000;
+    overflow: hidden;
+    background-color: var(--main-color);
+}
+
+.dropdown-item {
+    display: block;
+    padding: 1rem;
+    color: var(--black);
+    font-size: 1.4rem;
+    text-align: left;
+    text-decoration: none;
+}
+
+.dropdown-item:hover {
+    background-color: var(--purple);
+    color: var(--black);
+}
+
+/*========================FOOTER========================*/
+
+.footer{
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+
+}
+
+.footer h1{
+    color: var(--purple);
+    font-size: 3rem;
+    text-align: center;
+}
+
+.footer h2{
+    padding-top: 1rem;
+    text-align: center;
+}
+
+.footer .socials{
+    margin-top: 3rem;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+.footer .socials a{
+    height: 5rem;
+    width: 5rem;
+    color: var(---black);
+    margin: .3rem;
+    font-size: 1.5rem;
+
+}
+
+.footer .socials a:hover{
+    color: var(--main-color);
+}
+
+.footer .credits{
+    font-size: 1rem;
+    color: var(---black);
+    font-weight: lighter;
+    padding: 1.5rem;
+}
+
+.footer .credits a{
+    color: var(--black);
+}
+
+.footer .credits a:hover {
+    color: var(--main-color);
+    border-bottom: .1rem solid var(--main-color);
+    padding-bottom: .5rem;
+}

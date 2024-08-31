@@ -1,0 +1,74 @@
+:root {
+    --main-color: #d3ad7f;
+    --purple: #ad0569;
+    --bg: white;
+    --border: .1rem solid rgba(255, 255, 255, .3);
+    --black: black;
+}
+
+.register-profile-container{
+    padding: 2rem;
+    background: var(--bg);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin: 0 auto;
+}
+
+.register-profile-container h1 {
+    font-size: 2rem;
+    color: var(--purple);
+    margin-bottom: 1.5rem;
+}
+
+.register-profile-container .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.register-profile-container .form-label {
+    font-weight: 500;
+    color: var(--black);
+}
+
+.register-profile-container .form-control,
+.register-profile-container .form-control-file {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    color: var(--black);
+    background: var(--bg);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.register-profile-container .form-control:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 0.2rem rgba(173, 5, 105, 0.25);
+}
+
+.register-profile-container .form-error {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.register-profile-container .btn-save {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: var(--purple);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.register-profile-container .btn-save:hover {
+    background-color: #9d0b5a; 
+}
+
+.register-profile-container .form-control-file {
+    padding: 0;
+}

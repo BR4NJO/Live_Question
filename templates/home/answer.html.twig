@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ question.title }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/style/answer.css') }}" alt="">
+{% endblock %}
+
+{% block body %}
+    <div class="page-container">
+        <h1>{{ question.title }}</h1>
+        <p>{{ question.content }}</p>
+        <p>
+            <small>
+                Posté par {{ question.user.username }} 
+                il y a 
+                {% set diff_in_seconds = "now"|date('U') - question.date|date('U') %}
+
+                {% if diff_in_seconds < 60 %}
+                    {{ diff_in_seconds }} seconde{{ diff_in_seconds > 1 ? 's' }}
+                {% elseif diff_in_seconds < 3600 %}
+                    {{ (diff_in_seconds / 60)|round }} minute{{ (diff_in_seconds / 60)|round > 1 ? 's' }}
+                {% elseif diff_in_seconds < 86400 %}
+                    {{ (diff_in_seconds / 3600)|round }} heure{{ (diff_in_seconds / 3600)|round > 1 ? 's' }}
+                {% else %}
+                    {{ (diff_in_seconds / 86400)|round }} jour{{ (diff_in_seconds / 86400)|round > 1 ? 's' }}
+                {% endif %}
+            </small>
+        </p>
+
+        {% if question.picture %}
+            <img src="{{ asset('uploads/' ~ question.picture) }}" alt="Image de la question">
+        {% endif %}
+
+        <h2>Réponses</h2>
+        {% for answer in question.answers %}
+            <div class="answer">
+                <p>{{ answer.content }}</p>
+                <p>
+                    <small>
+                        Posté par {{ answer.user.username }} 
+                        il y a 
+                        {% set diff_in_seconds = "now"|date('U') - answer.date|date('U') %}
+
+                        {% if diff_in_seconds < 60 %}
+                            {{ diff_in_seconds }} seconde{{ diff_in_seconds > 1 ? 's' }}
+                        {% elseif diff_in_seconds < 3600 %}
+                            {{ (diff_in_seconds / 60)|round }} minute{{ (diff_in_seconds / 60)|round > 1 ? 's' }}
+                        {% elseif diff_in_seconds < 86400 %}
+                            {{ (diff_in_seconds / 3600)|round }} heure{{ (diff_in_seconds / 3600)|round > 1 ? 's' }}
+                        {% else %}
+                            {{ (diff_in_seconds / 86400)|round }} jour{{ (diff_in_seconds / 86400)|round > 1 ? 's' }}
+                        {% endif %}
+                    </small>
+                </p>
+            </div>
+        {% else %}
+            <p>Aucune réponse pour cette question.</p>
+        {% endfor %}
+
+        <div class="add-answer-container">
+            <h2>Ajouter une réponse</h2>
+            {{ form_start(form, {'attr': {'class': 'form-group'}}) }}
+                {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+                <button type="submit" class="btn">Répondre</button>
+            {{ form_end(form) }}
+        </div>
+        <a href="{{ path('question') }}" class="btn btn-secondary">Retour à la liste des questions</a>
+    </div>
+{% endblock %}

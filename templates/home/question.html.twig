@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/style/question.css') }}" alt="">
+{% endblock %}
+
+{% block title %}Liste des Questions{% endblock %}
+
+{% block body %}
+    <h1>Liste des Questions</h1>
+
+    {# Formulaire de filtrage #}
+    <form method="get" action="{{ path('question') }}">
+        <label for="user">Filtrer par utilisateur :</label>
+        <select name="user" id="user">
+            <option value="">Tous les utilisateurs</option>
+            {% for user in users %}
+                <option value="{{ user.id }}" {% if user.id == selectedUser %}selected{% endif %}>{{ user.username }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="category">Filtrer par catégorie :</label>
+        <select name="category" id="category">
+            <option value="">Toutes les catégories</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if category.id == selectedCategory %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Filtrer</button>
+    </form>
+
+    {# Affichage des questions #}
+    {% for question in questions %}
+        <div class="question">
+            <h2>{{ question.title }}</h2>
+            <p>{{ question.content }}</p>
+            <p>
+                <small>
+                    Posté il y a 
+                    {% set diff_in_seconds = "now"|date('U') - question.date|date('U') %}
+
+                    {% if diff_in_seconds < 60 %}
+                        {{ diff_in_seconds }} seconde{{ diff_in_seconds > 1 ? 's' }}
+                    {% elseif diff_in_seconds < 3600 %}
+                        {{ (diff_in_seconds / 60)|round }} minute{{ (diff_in_seconds / 60)|round > 1 ? 's' }}
+                    {% elseif diff_in_seconds < 86400 %}
+                        {{ (diff_in_seconds / 3600)|round }} heure{{ (diff_in_seconds / 3600)|round > 1 ? 's' }}
+                    {% else %}
+                        {{ (diff_in_seconds / 86400)|round }} jour{{ (diff_in_seconds / 86400)|round > 1 ? 's' }}
+                    {% endif %}
+                </small>
+            </p>
+
+            {% if question.picture %}
+                <img src="{{ asset('uploads/' ~ question.picture) }}" alt="Image de la question" style="max-width: 200px;">
+            {% endif %}
+
+            <p>Catégories :</p>
+            <ul>
+                {% for category in question.categories %}
+                    <li>{{ category.name }}</li>
+                {% endfor %}
+            </ul>
+
+            <a href="{{ path('view_question', { id: question.id }) }}">Voir la question</a> 
+        </div>
+    {% else %}
+        <p>Aucune question trouvée.</p>
+    {% endfor %}
+{% endblock %}

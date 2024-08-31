@@ -1,0 +1,29 @@
+{# templates/author/detail.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Questions de {{ author.pseudo }}{% endblock %}
+
+{% block body %}
+    <h1>Questions de {{ author.pseudo }}</h1>
+
+    {# Lien pour revenir à la page précédente #}
+
+    {% if author.questions|length > 0 %}
+        <ul>
+            {% for question in author.questions %}
+                <li>
+                    <a href="{{ path('view_question', { id: question.id }) }}">
+                        {{ question.title }}
+                    </a>
+                    {% if question.picture %}
+                        <img src="{{ asset('uploads/' ~ question.picture) }}" alt="Image de la question" style="max-width: 100px;">
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucune question trouvée pour cet utilisateur.</p>
+    {% endif %}
+
+    <a href="{{ path('author') }}" class="btn btn-secondary">Retour à la liste des auteurs</a>
+{% endblock %}

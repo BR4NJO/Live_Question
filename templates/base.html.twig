@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}LiveQuestion{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        
+        <!--================================icons================================-->
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+
+        <!--================================Style================================-->
+        <link rel="stylesheet" href="{{asset('assets/style/base.css')}}" alt="">
+        
+        {% block stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+        {% endblock %}
+    </head>
+    <body>
+
+        <!--================================Style================================-->
+
+        <header class="header">
+            <a href="{{ path('home') }}" class="logo">
+                <img src="{{ asset('assets/images/livequesqtion-logo.png')}}" class="nav_logo" alt="">
+                Livequestion
+            </a>
+
+            <nav class="navbar">
+
+                {% if app.user %}
+
+                    <div class="nav_content">
+
+                        <a href="{{ path('home') }}" class="nav_link">
+                            Accueil
+                        </a>
+
+
+                        <a href="{{ path('question') }}" class="nav_link">
+                            Les questions
+                        </a>
+
+                        <a href="{{ path('author') }}" class="nav_link">
+                            Les auteurs
+                        </a>
+
+                        <a href="{{ path('new_question') }}" class="nav_link">
+                            Nouvelle question
+                        </a>
+                    </div>
+
+                    <div class="nav_user">
+                        {% if app.user.picture is not empty %}
+                            <img src="{{ asset('assets/images/' ~ app.user.picture) }}" alt="{{ app.user.pseudo }}" class="nav_avatar">
+                        {% else %}
+                            <img src="{{ asset('assets/images/default-avatar.png') }}" alt="Default avatar" class="nav_pseudo">
+                        {% endif %}
+                        <span class="user-pseudo">{{ app.user.pseudo }}</span>
+                        <div class="dropdown-menu" id="dropdown-menu">
+                            <a href="{{ path('profile_edit') }}" class="dropdown-item">Modifier le profil</a>
+                            <a href="{{ path('app_logout') }}" class="dropdown-item">Déconnexion</a>
+                        </div>
+                    </div>
+                    {% else %}
+                        <a href="{{ path('app_register') }}" class="nav_link">S'inscrire</a>
+                        <a href="{{ path('app_login') }}" class="nav_link">Se connecter</a>
+                {% endif %}
+            </nav>
+
+           
+
+        </header>
+
+    
+        {% block body %}
+        
+        {% endblock %}
+
+        <footer class="footer">
+            <h1>Livequetion</h1>
+            <h2>Echangez autour de vos thématiques préférées</h2>
+            <div class="socials">
+                <a href="{{ path('question', { 'category': 1 }) }}" class="">Sport</a>
+                <a href="{{ path('question', { 'category': 2 }) }}" class="">Politique</a>
+                <a href="{{ path('question', { 'category': 3 }) }}" class="">Santé</a>
+                <a href="{{ path('question', { 'category': 4 }) }}" class="">Business</a>
+                <a href="{{ path('question', { 'category': 5 }) }}" class="">Musique</a>
+                <a href="{{ path('question', { 'category': 6 }) }}" class="">Film</a>
+                <a href="{{ path('question', { 'category': 7 }) }}" class="">Jeux-vidéos</a>
+            </div>
+
+            <div class="credits">
+                @ 2024 - Projet étudiant BTS / Licence - <a href="https://github.com/BR4NJO" target="_blank">Contactez-nous</a></div>
+            </div>
+        </footer>
+
+        <script src="{{ asset('assets/js/main.js') }}"></script>
+    </body>
+</html>
